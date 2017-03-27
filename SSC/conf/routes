@@ -1,0 +1,72 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET           /                                        controllers.Application.index()
+
+########################################################################################################################
+#
+#                                               ###    ########  ####
+#                                              ## ##   ##     ##  ##
+#                                             ##   ##  ##     ##  ##
+#                                            ##     ## ########   ##
+#                                            ######### ##         ##
+#                                            ##     ## ##         ##
+#                                            ##     ## ##        ####
+#
+########################################################################################################################
+
+# MedicoController
+POST          /medico                                  controllers.MedicoController.create()
+
+GET           /medico                                  controllers.MedicoController.read()
+
+GET           /medico/:id                              controllers.MedicoController.get(id: Long)
+
+PUT           /medico/:id                              controllers.MedicoController.update(id: Long)
+
+DELETE        /medico/:id                              controllers.MedicoController.delete(id: Long)
+
+#CitaController
+POST          /cita                                    controllers.CitaController.create()
+
+GET           /cita                                    controllers.CitaController.read()
+
+GET           /cita/:id                                controllers.CitaController.get(id : Long)
+
+PUT           /cita/:id                                controllers.CitaController.update(id : Long)
+
+DELETE        /cita/:id                                controllers.CitaController.delete(id: Long)
+
+#PacienteController
+POST          /paciente                                controllers.PacienteController.create()
+
+GET           /paciente                                controllers.PacienteController.read()
+
+GET           /paciente/:id                            controllers.PacienteController.get(id: Long)
+
+PUT           /paciente/:id                            controllers.PacienteController.update(id: Long)
+
+DELETE        /paciente/:id                            controllers.PacienteController.delete(id: Long)
+
+#HospitalController
+GET           /hospital                                controllers.HospitalController.read()
+
+GET           /hospital/:id                            controllers.HospitalController.getId(id: Long)
+
+POST          /hospital                                controllers.HospitalController.create()
+
+
+
+#OperarioController
+GET           /operario                                controllers.OperarioController.read()
+
+GET           /operario/:id                            controllers.OperarioController.getId(id: Long)
+
+POST          /operario                                controllers.OperarioController.create()
+
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET           /assets/*file                            controllers.Assets.versioned(path="/public", file: Asset)
