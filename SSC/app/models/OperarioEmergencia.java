@@ -17,24 +17,14 @@ public class OperarioEmergencia extends Model {
 
     private Long id;
     private String notificacion;
-    private Hospital hospital;
-
-    public Hospital getHospital() {
-        return hospital;
-    }
-
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
-    }
-
 
     public OperarioEmergencia() {
 
     }
 
-    public OperarioEmergencia(String notificacion, Hospital hospital) {
+    public OperarioEmergencia(String notificacion) {
         this.notificacion = notificacion;
-        this.hospital = hospital;
+
     }
 
     
@@ -57,9 +47,7 @@ public class OperarioEmergencia extends Model {
 
     public static OperarioEmergencia bind(JsonNode j) {
         String notificacion = j.findPath("notificacion").asText();
-       Hospital hospital = new Hospital();
-       Hospital.bind(j);
-       OperarioEmergencia operario = new OperarioEmergencia();
+        OperarioEmergencia operario = new OperarioEmergencia();
        
 
         return operario;

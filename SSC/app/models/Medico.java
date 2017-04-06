@@ -16,10 +16,11 @@ public class Medico extends Model {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Medico")
     public Long id;
 
-    public String nombre;
-    public int edad;
-    public String especializacion;
-    
+    private String nombre;
+    private int edad;
+    private String especializacion;
+    private List<Paciente> pacientes;
+    private List<Notificacion> notificaciones;
 
     public Medico() {
 
@@ -35,10 +36,12 @@ public class Medico extends Model {
         this.id=id;
     }
 
-    public Medico(String nombre, int edad, String especializacion) {
+    public Medico(String nombre, int edad, String especializacion, List<Paciente> pacientes, List<Notificacion> notificaciones) {
         this.nombre = nombre;
         this.edad = edad;
         this.especializacion = especializacion;
+        this.pacientes = pacientes;
+        this.notificaciones= notificaciones;
         
     }
 
@@ -75,16 +78,30 @@ public class Medico extends Model {
         this.especializacion = especializacion;
     }
 
+    public List<Paciente> getPacientes() {
+        return pacientes;
+    }
 
-    
+    public void setPacientes(List<Paciente> pacientes) {
+        this.pacientes = pacientes;
+    }
+
+    public List<Notificacion> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(List<Notificacion> notificaciones) {
+        this.notificaciones = notificaciones;
+    }
 
     public static Medico bind(JsonNode j) {
         String nombre = j.findPath("nombre").asText();
         int edad = j.findPath("edad").asInt();
         String especializacion = j.findPath("especializacion").asText();
-        
+        List pacientes = j.findValuesAsText("pacientes");
+        List notificaciones= j.findValuesAsText("notificaciones");
 
-        Medico medico = new Medico(nombre, edad, especializacion);
+        Medico medico = new Medico(nombre, edad, especializacion, pacientes,notificaciones);
         return medico;
     }
 
@@ -93,6 +110,8 @@ public class Medico extends Model {
         this.setNombre((nuevoMedico.getNombre()));
         this.setEdad((nuevoMedico.getEdad()));
         this.setEspecializacion((nuevoMedico.getEspecializacion()));
+        this.setPacientes(nuevoMedico.getPacientes());
+        this.setNotificaciones(nuevoMedico.getNotificaciones());
 
     }
 
@@ -101,6 +120,9 @@ public class Medico extends Model {
         this.setNombre(" ");
         this.setEdad(0);
         this.setEspecializacion(" ");
+        this.setPacientes(null);
+        this.setNotificaciones(null);
+
 
     }
 }

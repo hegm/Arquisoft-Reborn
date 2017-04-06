@@ -28,16 +28,6 @@ PUT           /medico/:id                              controllers.MedicoControl
 
 DELETE        /medico/:id                              controllers.MedicoController.delete(id: Long)
 
-#CitaController
-POST          /cita                                    controllers.CitaController.create()
-
-GET           /cita                                    controllers.CitaController.read()
-
-GET           /cita/:id                                controllers.CitaController.get(id : Long)
-
-PUT           /cita/:id                                controllers.CitaController.update(id : Long)
-
-DELETE        /cita/:id                                controllers.CitaController.delete(id: Long)
 
 #PacienteController
 POST          /paciente                                controllers.PacienteController.create()
@@ -49,14 +39,6 @@ GET           /paciente/:id                            controllers.PacienteContr
 PUT           /paciente/:id                            controllers.PacienteController.update(id: Long)
 
 DELETE        /paciente/:id                            controllers.PacienteController.delete(id: Long)
-
-#HospitalController
-GET           /hospital                                controllers.HospitalController.read()
-
-GET           /hospital/:id                            controllers.HospitalController.getId(id: Long)
-
-POST          /hospital                                controllers.HospitalController.create()
-
 
 
 #OperarioController

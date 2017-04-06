@@ -40,7 +40,7 @@ public class Paciente extends Model {
     public int nivelEstres;
 
    
-    public Emergencia emergencia;
+
 
     public Paciente(){
         this.id=null;
@@ -61,7 +61,7 @@ public class Paciente extends Model {
         this.id=id;
     }
 
-    public Paciente(String nombre, String apellido, int edad, String sintomas, String entidadMedica, String estado, Double presionSanguinea, Double frecuenciaCardiaca, int nivelEstres, Emergencia emergencia) {
+    public Paciente(String nombre, String apellido, int edad, String sintomas, String entidadMedica, String estado, Double presionSanguinea, Double frecuenciaCardiaca, int nivelEstres) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
@@ -72,7 +72,7 @@ public class Paciente extends Model {
         this.frecuenciaCardiaca = frecuenciaCardiaca;
         this.nivelEstres = nivelEstres;
         this.presionSanguinea = presionSanguinea;
-        this.emergencia = emergencia;
+
         
      
 
@@ -165,13 +165,9 @@ public class Paciente extends Model {
     
     
 
-    public Emergencia getEmergencia() {
-        return emergencia;
-    }
 
-    public void setEmergencia(Emergencia emergencia) {
-        this.emergencia = emergencia;
-    }
+
+
 
   
     
@@ -191,10 +187,7 @@ public class Paciente extends Model {
         int nivelEstres = j.findPath("nivelEstres").asInt();
        
 
-        Emergencia em = new Emergencia();
-        em.bind(j);
-
-        Paciente paciente = new Paciente(nombre, apellido, edad,sintomas, entidadMedica, estado, presionSanguinea, frecuenciaCardiaca, nivelEstres, em);
+       Paciente paciente = new Paciente(nombre, apellido, edad,sintomas, entidadMedica, estado, presionSanguinea, frecuenciaCardiaca, nivelEstres);
         return paciente;
     }
 
