@@ -11,13 +11,13 @@ import java.util.List;
  */
 
 @Entity
-@Table(name="operario")
+@Table(name="operarioentity")
 public class OperarioEmergencia extends Model {
 
     public static Finder<Long,OperarioEmergencia> FINDER = new Finder<>(OperarioEmergencia.class);
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OperarioEmergencia")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private Paciente paciente;
     private List<Paciente> pacientes;

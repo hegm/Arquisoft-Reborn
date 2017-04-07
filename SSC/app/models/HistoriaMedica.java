@@ -10,13 +10,13 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="historial")
+@Table(name="historialentity")
 public class HistoriaMedica extends Model{
 
     public static Finder<Long,HistoriaMedica> FINDER = new Finder<>(HistoriaMedica.class);
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "historial")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long id;
 
     private String diagnostico;

@@ -22,7 +22,7 @@ public class Sensor extends Model {
     public final static int GPS=3;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Sensor")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 
     private Long id;
 

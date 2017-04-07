@@ -3,23 +3,28 @@
 
 # --- !Ups
 
-create table consejo (
+create table emergenciaentity (
+  id                        bigint not null,
+  constraint pk_emergenciaentity primary key (id))
+;
+
+create table consejoentity (
   id                        bigint not null,
   dieta                     varchar(255),
   rutina                    varchar(255),
   medicamento               varchar(255),
   cita                      varchar(255),
   hash                      bigint,
-  constraint pk_consejo primary key (id))
+  constraint pk_consejoentity primary key (id))
 ;
 
-create table historial (
+create table historialentity (
   id                        bigint not null,
   diagnostico               varchar(255),
   tratamiento               varchar(255),
   examen                    varchar(255),
   fecha                     varchar(255),
-  constraint pk_historial primary key (id))
+  constraint pk_historialentity primary key (id))
 ;
 
 create table medicoentity (
@@ -30,17 +35,17 @@ create table medicoentity (
   constraint pk_medicoentity primary key (id))
 ;
 
-create table notificacion (
+create table notificacionentity (
   id                        bigint not null,
   presion_sanguinea         float,
   frecuencia_cardiaca       float,
   nivel_de_estres           float,
-  constraint pk_notificacion primary key (id))
+  constraint pk_notificacionentity primary key (id))
 ;
 
-create table operario (
+create table operarioentity (
   id                        bigint not null,
-  constraint pk_operario primary key (id))
+  constraint pk_operarioentity primary key (id))
 ;
 
 create table pacienteentity (
@@ -58,50 +63,56 @@ create table sensorentity (
   constraint pk_sensorentity primary key (id))
 ;
 
-create sequence Consejo;
+create sequence emergenciaentity_seq;
 
-create sequence historial;
+create sequence consejoentity_seq;
 
-create sequence Medico;
+create sequence historialentity_seq;
 
-create sequence Notificacion;
+create sequence medicoentity_seq;
 
-create sequence OperarioEmergencia;
+create sequence notificacionentity_seq;
 
-create sequence Paciente;
+create sequence operarioentity_seq;
 
-create sequence Sensor;
+create sequence pacienteentity_seq;
+
+create sequence sensorentity_seq;
 
 
 
 
 # --- !Downs
 
-drop table if exists consejo cascade;
+drop table if exists emergenciaentity cascade;
 
-drop table if exists historial cascade;
+drop table if exists consejoentity cascade;
+
+drop table if exists historialentity cascade;
 
 drop table if exists medicoentity cascade;
 
-drop table if exists notificacion cascade;
+drop table if exists notificacionentity cascade;
 
-drop table if exists operario cascade;
+drop table if exists operarioentity cascade;
 
 drop table if exists pacienteentity cascade;
 
 drop table if exists sensorentity cascade;
 
-drop sequence if exists Consejo;
+drop sequence if exists emergenciaentity_seq;
 
-drop sequence if exists historial;
+drop sequence if exists consejoentity_seq;
 
-drop sequence if exists Medico;
+drop sequence if exists historialentity_seq;
 
-drop sequence if exists Notificacion;
+drop sequence if exists medicoentity_seq;
 
-drop sequence if exists OperarioEmergencia;
+drop sequence if exists notificacionentity_seq;
 
-drop sequence if exists Paciente;
+drop sequence if exists operarioentity_seq;
 
-drop sequence if exists Sensor;
+drop sequence if exists pacienteentity_seq;
+
+drop sequence if exists sensorentity_seq;
 

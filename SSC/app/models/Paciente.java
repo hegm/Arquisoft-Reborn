@@ -17,7 +17,7 @@ public class Paciente extends Model {
     //Atributos
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Paciente")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 
     public Long id;
 

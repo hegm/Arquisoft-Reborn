@@ -16,14 +16,14 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="consejo")
+@Table(name="consejoentity")
 public class Consejo extends Model {
     
     public static Finder<Long,Consejo> FINDER = new Finder<>(Consejo.class);
     public static Integer CONS = 100;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Consejo")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 
     private Long id;
     private String dieta;
@@ -34,26 +34,26 @@ public class Consejo extends Model {
     
     
  public long Hash(String s, int M) {
-     int intLength = s.length() / 4;
-     long sum = 0;
-     for (int j = 0; j < intLength; j++) {
-       char c[] = s.substring(j * 4, (j * 4) + 4).toCharArray();
-       long mult = 1;
-       for (int k = 0; k < c.length; k++) {
-	 sum += c[k] * mult;
-	 mult *= 256;
-       }
-     }
+        int intLength = s.length() / 4;
+        long sum = 0;
+        for (int j = 0; j < intLength; j++) {
+            char c[] = s.substring(j * 4, (j * 4) + 4).toCharArray();
+            long mult = 1;
+            for (int k = 0; k < c.length; k++) {
+                sum += c[k] * mult;
+                mult *= 256;
+            }
+        }
 
-     char c[] = s.substring(intLength * 4).toCharArray();
-     long mult = 1;
-     for (int k = 0; k < c.length; k++) {
-       sum += c[k] * mult;
-       mult *= 256;
-     }
+        char c[] = s.substring(intLength * 4).toCharArray();
+        long mult = 1;
+        for (int k = 0; k < c.length; k++) {
+            sum += c[k] * mult;
+            mult *= 256;
+        }
 
-     return(Math.abs(sum) % M);
-   }
+        return(Math.abs(sum) % M);
+    }
 
     
    
