@@ -160,20 +160,6 @@ public class Paciente extends Model {
         this.nivelEstres = nivelEstres;
     }
 
-    
-
-    
-    
-
-
-
-
-
-  
-    
-
-
-   
 
     public static Paciente bind(JsonNode j) {
         String nombre = j.findPath("nombre").asText();

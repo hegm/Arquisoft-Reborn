@@ -1,12 +1,22 @@
 package models;
 
+import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import javax.persistence.*;
 
 /**
  * Created by haes_ on 6/04/2017.
  */
-public class Notificacion {
 
+@Entity
+@Table(name="notificacion")
+public class Notificacion extends Model {
+
+    public static Finder<Long,Notificacion> FINDER = new Finder<>(Notificacion.class);
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Notificacion")
     private Long id;
 
     private double presionSanguinea;
