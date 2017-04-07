@@ -8,6 +8,7 @@ import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Paciente;
+import models.Sensor;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -60,10 +61,6 @@ public class PacienteController extends Controller {
     }
 
 
-
-    
-
-
     @BodyParser.Of(BodyParser.Json.class)
     public Result delete(Long id) {
         Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(id);
@@ -73,6 +70,23 @@ public class PacienteController extends Controller {
         }
 
         return ok(Json.toJson(paciente));
+    }
+
+    public Result getSensor(int idPaciente, int idSensor)
+    {
+
+        Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(idPaciente);
+        ObjectNode result = Json.newObject();
+        if(paciente==null){
+            return ok(Json.toJson(result));
+        }
+       
+        Sensor n = paciente.getSensor();
+        if(n.getId()== idSensor){
+            return ok(Json.toJson(n));
+
+        }
+        return ok(Json.toJson(result));
     }
 
 }
