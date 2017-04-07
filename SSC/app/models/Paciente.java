@@ -43,9 +43,9 @@ public class Paciente extends Model {
         this.id=null;
         this.nombre="NO NAME";
         this.edad=-1;
-        this.sensor= new Sensor();
+        this.sensor= null;
         this.notificaciones= null;
-        this.medico=new Medico();
+        this.medico=null;
 
     }
 

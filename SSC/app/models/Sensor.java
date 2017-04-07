@@ -22,7 +22,7 @@ public class Sensor extends Model {
     public final static int GPS=3;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Medico")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Sensor")
 
     private Long id;
 
@@ -44,7 +44,7 @@ public class Sensor extends Model {
         this.nombre= "NO NAME";
         this.tipo= -1;
         this.valor= -1.0;
-        this.paciente= new Paciente();
+        this.paciente= null;
 
     }
 
