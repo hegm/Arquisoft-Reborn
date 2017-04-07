@@ -61,7 +61,7 @@ public class OperarioEmergencia extends Model {
         this.pacientes = pacientes;
     }
 
-    public OperarioEmergencia bind(JsonNode j){
+    public static OperarioEmergencia bind(JsonNode j){
         List pacientes = j.findValuesAsText("paciente");
         Paciente paciente= new Paciente();
         paciente.bind(j);

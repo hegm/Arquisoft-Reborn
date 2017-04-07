@@ -80,7 +80,7 @@ public class PacienteController extends Controller {
         if(paciente==null){
             return ok(Json.toJson(result));
         }
-       
+
         Sensor n = paciente.getSensor();
         if(n.getId()== idSensor){
             return ok(Json.toJson(n));

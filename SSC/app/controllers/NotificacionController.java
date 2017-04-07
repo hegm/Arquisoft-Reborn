@@ -1,16 +1,24 @@
 package controllers;
 
-<<<<<<< HEAD
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Notificacion;
-=======
+
 import com.avaje.ebean.Model;
->>>>>>> origin/master
+import play.libs.Json;
+import play.mvc.BodyParser;
+import play.mvc.Controller;
+import play.mvc.Result;
+
+import java.util.List;
+
 
 /**
  * Created by haes_ on 6/04/2017.
  */
-<<<<<<< HEAD
-public class NotificacionController {
+
+public class NotificacionController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public Result create() {
         JsonNode j = Controller.request().body().asJson();
@@ -59,12 +67,4 @@ public class NotificacionController {
         }
         return ok(Json.toJson(notificacion));
     }
-=======
-
-public class NotificacionController extends Model {
-
-
-
-
->>>>>>> origin/master
 }
