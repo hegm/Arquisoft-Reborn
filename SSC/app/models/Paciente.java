@@ -118,6 +118,10 @@ public class Paciente extends Model {
         this.notificaciones = notificaciones;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     public static Paciente bind(JsonNode j) {
         String nombre = j.findPath("nombre").asText();
         int edad = j.findPath("edad").asInt();

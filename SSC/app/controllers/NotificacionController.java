@@ -1,10 +1,15 @@
 package controllers;
 
+<<<<<<< HEAD
 import models.Notificacion;
+=======
+import com.avaje.ebean.Model;
+>>>>>>> origin/master
 
 /**
  * Created by haes_ on 6/04/2017.
  */
+<<<<<<< HEAD
 public class NotificacionController {
     @BodyParser.Of(BodyParser.Json.class)
     public Result create() {
@@ -54,4 +59,12 @@ public class NotificacionController {
         }
         return ok(Json.toJson(notificacion));
     }
+=======
+
+public class NotificacionController extends Model {
+
+
+
+
+>>>>>>> origin/master
 }

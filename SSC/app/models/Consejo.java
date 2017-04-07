@@ -7,17 +7,21 @@ package models;
 
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 /**
  *
  * @author yf.rivera1851
  */
 
+@Entity
+@Table(name="consejo")
 public class Consejo extends Model {
+    public static Finder<Long,Consejo> FINDER = new Finder<>(Consejo.class);
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Consejo")
 
     private Long id;
     private String dieta;

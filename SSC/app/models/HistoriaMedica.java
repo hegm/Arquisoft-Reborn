@@ -2,32 +2,38 @@ package models;
 
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 /**
  * Created by haes_ on 14/02/2017.
  */
+
+@Entity
+@Table(name="historial")
 public class HistoriaMedica extends Model{
 
+    public static Finder<Long,HistoriaMedica> FINDER = new Finder<>(HistoriaMedica.class);
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "historial")
     public Long id;
+
+    private String diagnostico;
+
+    public String tratamiento;
+
+    private String examen;
+
+    private String fecha;
     
-
-    
-    public String eventos;
-
-    public String tratamientos;
-
-    public String fecha;
-    
-    public Paciente paciente;
+    private Paciente paciente;
 
 
-    public HistoriaMedica(String eventos, String tratamientos, String fecha,Paciente pas) {
-        this.eventos = eventos;
-        this.tratamientos = tratamientos;
+    public HistoriaMedica(String diagnostico, String tratamiento, String examen, String fecha, Paciente pas) {
+        this.diagnostico=diagnostico;
+        this.examen=examen;
+        this.tratamiento = tratamiento;
         this.fecha = fecha;
         this.paciente = pas;
     }
@@ -40,21 +46,29 @@ public class HistoriaMedica extends Model{
         this.id = id;
     }
 
-    
-    public String getEventos() {
-        return eventos;
+
+    public String getDiagnostico() {
+        return diagnostico;
     }
 
-    public void setEventos(String eventos) {
-        this.eventos = eventos;
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
     }
 
-    public String getTratamientos() {
-        return tratamientos;
+    public String getExamen() {
+        return examen;
     }
 
-    public void setTratamientos(String tratamientos) {
-        this.tratamientos = tratamientos;
+    public void setExamen(String examen) {
+        this.examen = examen;
+    }
+
+    public String getTratamiento() {
+        return tratamiento;
+    }
+
+    public void setTratamiento(String tratamiento) {
+        this.tratamiento = tratamiento;
     }
 
     public String getFecha() {
@@ -77,18 +91,27 @@ public class HistoriaMedica extends Model{
 
     public static HistoriaMedica bind(JsonNode j) {
 
-        String eventos = j.findPath("eventos").asText();
-        String tratamientos = j.findPath("tratamientos").asText();
+        String diagnostico= j.findPath("diagnostico").asText();
+        String tratamientos = j.findPath("tratamiento").asText();
+        String examen =j.findPath("examen").asText();
         String fecha = j.findPath("fecha").asText();
         Paciente paciente = new Paciente();
         paciente.bind(j);
-        HistoriaMedica historiaMedica = new HistoriaMedica(eventos, tratamientos, fecha,paciente);
+        HistoriaMedica historiaMedica = new HistoriaMedica( diagnostico,tratamientos,examen, fecha,paciente);
         return historiaMedica;
     }
 
     public void update(HistoriaMedica nuevaHistoria) {
-        this.setEventos((nuevaHistoria.getEventos()));
-        this.setTratamientos((nuevaHistoria.getTratamientos()));
+        this.setExamen(nuevaHistoria.getExamen());
+        this.setDiagnostico(nuevaHistoria.getDiagnostico());
+        this.setTratamiento((nuevaHistoria.getTratamiento()));
         this.setFecha((nuevaHistoria.getFecha()));
+    }
+
+    public void delete(){
+        this.setExamen("");
+        this.setDiagnostico("");
+        this.setFecha("");
+        this.setTratamiento("");
     }
 }
