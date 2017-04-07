@@ -8,12 +8,14 @@ import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Paciente;
+import models.Sensor;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.List;
+import models.Consejo;
 
 
 public class PacienteController extends Controller {
@@ -60,10 +62,6 @@ public class PacienteController extends Controller {
     }
 
 
-
-    
-
-
     @BodyParser.Of(BodyParser.Json.class)
     public Result delete(Long id) {
         Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(id);
@@ -73,6 +71,73 @@ public class PacienteController extends Controller {
         }
 
         return ok(Json.toJson(paciente));
+    }
+
+    public Result getSensor(int idPaciente, int idSensor)
+    {
+
+        Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(idPaciente);
+        ObjectNode result = Json.newObject();
+        if(paciente==null){
+            return ok(Json.toJson(result));
+        }
+
+        Sensor n = paciente.getSensor();
+        if(n.getId()== idSensor){
+            return ok(Json.toJson(n));
+
+        }
+        return ok(Json.toJson(result));
+    }
+    
+    public Result getConsejo(int idPaciente, int idConsejo)
+    {
+
+        Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(idPaciente);
+        ObjectNode result = Json.newObject();
+        if(paciente==null){
+            return ok(Json.toJson(result));
+        }
+
+        List<Consejo> consejos = paciente.getConsejos();
+         for(int i=0; i<consejos.size(); i++){
+            Consejo c = consejos.get(i);
+            if(c.getId()== idConsejo){
+                
+            Consejo con = consejos.get(i);
+            
+            boolean ok = integridad(con);
+            
+            
+            if(ok){
+               return ok(Json.toJson(consejos));        
+            }  
+            else {
+                return ok(Json.toJson(result));
+            }
+            
+            }
+
+        }
+        return ok(Json.toJson(result));
+    }
+    
+    
+    public boolean integridad(Consejo con)
+    {
+        boolean integro = false;
+        String x = con.getMedicamento();
+        int y = con.CONS;
+        Long h = con.getHash();
+        
+        Long hash = con.Hash(x, y);
+        
+        if(hash == h){
+            integro = true;
+        }
+        
+        
+        return integro;
     }
 
 }

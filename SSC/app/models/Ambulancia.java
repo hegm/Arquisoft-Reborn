@@ -1,11 +1,12 @@
 package models;
 
+import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Created by haes_ on 6/04/2017.
  */
-public class Ambulancia {
+public class Ambulancia extends Model {
 
     private Long id;
 

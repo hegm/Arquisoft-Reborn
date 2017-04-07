@@ -4,18 +4,19 @@ package controllers;
  * Created by haes_ on 14/02/2017.
  */
 
-import akka.dispatch.MessageDispatcher;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Medico;
+import models.Notificacion;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.List;
-import java.util.concurrent.CompletionStage;
+import models.Consejo;
+import models.Paciente;
 
 public class MedicoController extends Controller {
 
@@ -26,6 +27,27 @@ public class MedicoController extends Controller {
         Medico medico = Medico.bind(j);
         medico.save();
         return ok(Json.toJson(medico));
+    }
+    
+    public Result postConsejo(Long idMedico, int idPaciente, Consejo consejo) {
+        Medico medico = (Medico) new Model.Finder(Long.class, Medico.class).byId(idMedico);
+         ObjectNode result = Json.newObject();
+        if (medico == null){
+            return ok(Json.toJson(result));
+        }
+        
+        List<Paciente> pacientes = medico.getPacientes();
+         for(int i=0; i<pacientes.size(); i++){
+            Paciente p = pacientes.get(i);
+            if(p.getId()== idPaciente){
+                
+                List consejos= p.getConsejos();
+                consejos.add(consejo);
+               return ok(Json.toJson(consejos));            
+                
+            }
+   }
+          return ok(Json.toJson(result));
     }
 
     public Result read() {
@@ -68,6 +90,24 @@ public class MedicoController extends Controller {
         }
         return ok(Json.toJson(medico));
     }
+    public Result getNotificacion(int idMedico, int idNotificacion)
+    {
+
+        Medico medico = (Medico) new Model.Finder(Long.class, Medico.class).byId(idMedico);
+        ObjectNode result = Json.newObject();
+        if(medico==null){
+            return ok(Json.toJson(result));
+        }
+        List<Notificacion> notificaciones= medico.getNotificaciones();
+        for(int i=0; i<notificaciones.size(); i++){
+            Notificacion n = notificaciones.get(i);
+            if(n.getId()== idNotificacion){
+                return ok(Json.toJson(n));
+            }
+        }
+        return ok(Json.toJson(result));
+    }
+
 
 
 }

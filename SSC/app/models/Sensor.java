@@ -1,5 +1,9 @@
 package models;
 
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -18,9 +22,9 @@ public class Sensor extends Model {
     public final static int GPS=3;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Medico")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Sensor")
 
-    private int id;
+    private Long id;
 
 
     private String nombre;
@@ -40,11 +44,11 @@ public class Sensor extends Model {
         this.nombre= "NO NAME";
         this.tipo= -1;
         this.valor= -1.0;
-        this.paciente= new Paciente();
+        this.paciente= null;
 
     }
 
-    public Sensor (int id){
+    public Sensor (Long id){
         this();
         this.id=id;
     }
@@ -66,11 +70,11 @@ public class Sensor extends Model {
     }
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -99,13 +103,15 @@ public class Sensor extends Model {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
+
     public static Sensor bind(JsonNode j) {
         String nombre = j.findPath("nombre").asText();
         int tipo = j.findPath("tipo").asInt();
-        String valor= j.findPath("valor").asText();
+        double valor= j.findPath("valor").asDouble();
+        Paciente paciente=new Paciente();
+        paciente.bind(j);
 
-
-        Sensor sensor = new Sensor(nombre,tipo, valor, paciente.bind(j));
+        Sensor sensor = new Sensor(nombre,tipo, valor,paciente);
         return sensor;
     }
 
@@ -125,6 +131,6 @@ public class Sensor extends Model {
         this.setTipo(0);
         this.setValor(0.0);
         this.setPaciente(null);
-
+    }
 
 }
