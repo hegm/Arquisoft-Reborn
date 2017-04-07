@@ -66,8 +66,19 @@ public class Paciente extends Model {
 
 
     }
+
+    public List<Consejo> getConsejos() {
+        return consejos;
+    }
+
+    public void setConsejos(List<Consejo> consejos) {
+        this.consejos = consejos;
+    }
     
 
+     
+     
+     
     public Long getId() {
         return id;
     }
@@ -123,6 +134,7 @@ public class Paciente extends Model {
         String nombre = j.findPath("nombre").asText();
         int edad = j.findPath("edad").asInt();
         List notificaciones= j.findValuesAsText("notificaciones");
+        List consejos = j.findValues("consejos");
         Medico medico= new Medico();
         medico.bind(j);
         Sensor sensor = new Sensor();
@@ -136,7 +148,7 @@ public class Paciente extends Model {
         this.setNombre((nuevoPaciente.getNombre()));
         this.setMedico((nuevoPaciente.getMedico()));
         this.setEdad((nuevoPaciente.getEdad()));
-        
+        this.setConsejos(nuevoPaciente.getConsejos());
         this.setSensor((nuevoPaciente.getSensor()));
         this.setNotificaciones((nuevoPaciente.getNotificaciones()));
 

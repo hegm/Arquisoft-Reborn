@@ -18,7 +18,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="consejo")
 public class Consejo extends Model {
+    
     public static Finder<Long,Consejo> FINDER = new Finder<>(Consejo.class);
+    public static Integer CONS = 100;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Consejo")
@@ -28,7 +30,33 @@ public class Consejo extends Model {
     private String rutina;
     private String medicamento;
     private String cita;
+    private Long hash;
+    
+    
+ public long Hash(String s, int M) {
+     int intLength = s.length() / 4;
+     long sum = 0;
+     for (int j = 0; j < intLength; j++) {
+       char c[] = s.substring(j * 4, (j * 4) + 4).toCharArray();
+       long mult = 1;
+       for (int k = 0; k < c.length; k++) {
+	 sum += c[k] * mult;
+	 mult *= 256;
+       }
+     }
 
+     char c[] = s.substring(intLength * 4).toCharArray();
+     long mult = 1;
+     for (int k = 0; k < c.length; k++) {
+       sum += c[k] * mult;
+       mult *= 256;
+     }
+
+     return(Math.abs(sum) % M);
+   }
+
+    
+   
 
     
     public Consejo()
@@ -38,19 +66,23 @@ public class Consejo extends Model {
         this.rutina="NO NAME";
         this.medicamento="NO NAME";
         this.cita="NO NAME";
+        
     }
 
     public Consejo(Long id){
         this();
         this.id=id;
     }
+    
+  
 
-    public Consejo(String dieta, String rutina, String medicamento, String cita) {
+    public Consejo(String dieta, String rutina, String medicamento, String cita, Long hash) {
 
         this.dieta = dieta;
         this.rutina = rutina;
         this.medicamento = medicamento;
         this.cita = cita;
+        this.hash = hash;
     }
 
     public Long getId() {
@@ -93,13 +125,22 @@ public class Consejo extends Model {
         this.cita = cita;
     }
 
+    public long getHash() {
+        return hash;
+    }
+
+    public void setHash() {
+        this.hash = Hash(medicamento,CONS);
+    }
+    
     public static Consejo bind(JsonNode j) {
         String dieta = j.findPath("dieta").asText();
         String rutina = j.findPath("rutina").asText();
         String medicamento = j.findPath("medicamento").asText();
         String cita= j.findPath("medicamento").asText();
+        Long hash= j.findPath("hash").asLong();
 
-        Consejo consejo = new Consejo(dieta,rutina,medicamento,cita);
+        Consejo consejo = new Consejo(dieta,rutina,medicamento,cita,hash);
         return consejo;
     }
 
@@ -116,7 +157,9 @@ public class Consejo extends Model {
         this.setMedicamento("");
         this.setDieta("");
         this.setCita("");
+        this.setHash();
     }
+    
     
     
     
