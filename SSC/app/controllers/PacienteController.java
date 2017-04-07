@@ -73,7 +73,7 @@ public class PacienteController extends Controller {
         return ok(Json.toJson(paciente));
     }
 
-    public Result getSensor(int idPaciente, int idSensor)
+    public Result getSensor(Long idPaciente, Long idSensor)
     {
 
         Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(idPaciente);
@@ -90,7 +90,7 @@ public class PacienteController extends Controller {
         return ok(Json.toJson(result));
     }
     
-    public Result getConsejo(int idPaciente, int idConsejo)
+    public Result getConsejo(Long idPaciente, Long idConsejo)
     {
 
         Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(idPaciente);

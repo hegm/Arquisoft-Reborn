@@ -70,7 +70,7 @@ public class NotificacionController extends Controller {
         return ok(Json.toJson(notificacion));
     }
 
-    public Result getFrecuencia(int idPaciente)
+    public Result getFrecuencia(Long idPaciente)
     {
         double frecuencia=10;
 
@@ -93,7 +93,7 @@ public class NotificacionController extends Controller {
         return ok(Json.toJson(result));
     }
 
-    public Result getPresion(int idPaciente)
+    public Result getPresion(Long idPaciente)
     {
         double presion=0;
 
@@ -116,7 +116,7 @@ public class NotificacionController extends Controller {
         return ok(Json.toJson(result));
     }
 
-    public Result getEstres(int idPaciente)
+    public Result getEstres(Long idPaciente)
     {
         double estres=0;
 

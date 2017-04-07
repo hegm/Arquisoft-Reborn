@@ -90,7 +90,7 @@ public class MedicoController extends Controller {
         }
         return ok(Json.toJson(medico));
     }
-    public Result getNotificacion(int idMedico, int idNotificacion)
+    public Result getNotificacion(Long idMedico, Long idNotificacion)
     {
 
         Medico medico = (Medico) new Model.Finder(Long.class, Medico.class).byId(idMedico);
