@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Medico;
 import models.Notificacion;
+import models.Paciente;
+import models.Sensor;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -69,7 +71,7 @@ public class MedicoController extends Controller {
         }
         return ok(Json.toJson(medico));
     }
-    public Notificacion getNotificacion(int idMedico, int idNotificacion)
+    public Result getNotificacion(int idMedico, int idNotificacion)
     {
 
         Medico medico = (Medico) new Model.Finder(Long.class, Medico.class).byId(idMedico);
@@ -80,8 +82,27 @@ public class MedicoController extends Controller {
         for(int i=0; i<notificaciones.size(); i++){
             Notificacion n = notificaciones.get(i);
             if(n.getId()== idNotificacion){
-                return n;
+                return ok(Json.toJson(n));
             }
+        }
+        return ok(Json.toJson(result));
+    }
+    public Result getSensor(int idMedico, int idPaciente)
+    {
+
+        Medico medico = (Medico) new Model.Finder(Long.class, Medico.class).byId(idMedico);
+        if(medico==null){
+            return ok(Json.toJson(result));
+        }
+        Paciente paciente = (Paciente) new Model.Finder(Long.class, Medico.class).byId(idPaciente);
+
+        if (paciente==null){
+            return ok(Json.toJson(result));
+        }
+            Sensor n = paciente.getSensor();
+            if(n.getId()== idNotificacion){
+                return ok(Json.toJson(n));
+
         }
         return ok(Json.toJson(result));
     }
