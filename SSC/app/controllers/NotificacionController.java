@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Notificacion;
 
 import com.avaje.ebean.Model;
+import models.Paciente;
+import models.Sensor;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -66,5 +68,74 @@ public class NotificacionController extends Controller {
             notificacion.save();
         }
         return ok(Json.toJson(notificacion));
+    }
+
+    public Result getFrecuencia(int idPaciente)
+    {
+        double frecuencia=10;
+
+       Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(idPaciente);
+        ObjectNode result = Json.newObject();
+        if(paciente==null){
+            return ok(Json.toJson(result));
+        }
+        Sensor sensor= paciente.getSensor();
+
+        List<Notificacion> notificaciones= paciente.getNotificaciones();
+        for(int i=0; i<notificaciones.size(); i++){
+            Notificacion n = notificaciones.get(i);
+            if(sensor.getTipo()==0){
+                n.setFrecuenciaCardiaca(sensor.getValor());
+                frecuencia=n.getFrecuenciaCardiaca();
+                return ok(Json.toJson(frecuencia));
+            }
+        }
+        return ok(Json.toJson(result));
+    }
+
+    public Result getPresion(int idPaciente)
+    {
+        double presion=0;
+
+        Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(idPaciente);
+        ObjectNode result = Json.newObject();
+        if(paciente==null){
+            return ok(Json.toJson(result));
+        }
+        Sensor sensor= paciente.getSensor();
+
+        List<Notificacion> notificaciones= paciente.getNotificaciones();
+        for(int i=0; i<notificaciones.size(); i++){
+            Notificacion n = notificaciones.get(i);
+            if(sensor.getTipo()==1){
+                n.setFrecuenciaCardiaca(sensor.getValor());
+                presion=n.getFrecuenciaCardiaca();
+                return ok(Json.toJson(presion));
+            }
+        }
+        return ok(Json.toJson(result));
+    }
+
+    public Result getEstres(int idPaciente)
+    {
+        double estres=0;
+
+        Paciente paciente = (Paciente) new Model.Finder(Long.class, Paciente.class).byId(idPaciente);
+        ObjectNode result = Json.newObject();
+        if(paciente==null){
+            return ok(Json.toJson(result));
+        }
+        Sensor sensor= paciente.getSensor();
+
+        List<Notificacion> notificaciones= paciente.getNotificaciones();
+        for(int i=0; i<notificaciones.size(); i++){
+            Notificacion n = notificaciones.get(i);
+            if(sensor.getTipo()==2){
+                n.setFrecuenciaCardiaca(sensor.getValor());
+                estres=n.getFrecuenciaCardiaca();
+                return ok(Json.toJson(estres));
+            }
+        }
+        return ok(Json.toJson(result));
     }
 }
