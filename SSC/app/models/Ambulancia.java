@@ -16,6 +16,7 @@ public class Ambulancia extends Model {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+
     private Paciente paciente;
 
     private Notificacion notificacion;

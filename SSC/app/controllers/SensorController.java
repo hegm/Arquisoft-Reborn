@@ -25,6 +25,8 @@ public class SensorController extends Controller {
         return ok(Json.toJson(sensor));
     }
 
+
+
     public Result read() {
         List<Sensor> sensors = new Model.Finder(String.class, Sensor.class).all();
         return ok(Json.toJson(sensors));
@@ -65,4 +67,7 @@ public class SensorController extends Controller {
         }
         return ok(Json.toJson(sensor));
     }
+
+
+
 }

@@ -1,0 +1,195 @@
+[
+  {
+    "id": "88d2c1bb.80e04",
+    "type": "serial in",
+    "z": "2edf92b8.88f81e",
+    "name": "SensorPresion",
+    "serial": "de70d88e.0e1478",
+    "x": 112,
+    "y": 137.1818389892578,
+    "wires": [
+      [
+        "d7f4c1da.121b4"
+      ]
+    ]
+  },
+  {
+    "id": "5ac1d02f.269e2",
+    "type": "inject",
+    "z": "2edf92b8.88f81e",
+    "name": "sensorTime",
+    "topic": "roomTime",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "1",
+    "crontab": "",
+    "once": true,
+    "x": 142.45455932617188,
+    "y": 270.8181653022766,
+    "wires": [
+      [
+        "5c5bdfc9.58973",
+        "c5f6b780.a08478"
+      ]
+    ]
+  },
+  {
+    "id": "d7f4c1da.121b4",
+    "type": "function",
+    "z": "2edf92b8.88f81e",
+    "name": "Format Presion",
+    "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\ntempString = msg.payload;\ntempArray = tempString.split(\"\\t\");\ntempUnit = tempArray[1].replace(\"\\r\\n\", \"\")\nres.topic = \"roomPresion\";\nres.payload = {};\n\nres.payload = {\"valor\":parseInt(tempArray[0])};\nreturn res;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 387.90914154052734,
+    "y": 136.27272844314575,
+    "wires": [
+      [
+        "718eafd1.7abf4",
+        "dec660ee.e12fb"
+      ]
+    ]
+  },
+  {
+    "id": "5c5bdfc9.58973",
+    "type": "function",
+    "z": "2edf92b8.88f81e",
+    "name": "Format Time",
+    "func": "var res = {};\n\nepoch = msg.payload;\ntopic = msg.topic;\n\ndatetime = new Date(epoch);\n\nres.payload = datetime;\nres.topic = topic;\n\nreturn res;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 385.63635635375977,
+    "y": 272.6363697052002,
+    "wires": [
+      [
+        "f0250e70.8e4d9",
+        "dec660ee.e12fb"
+      ]
+    ]
+  },
+  {
+    "id": "c5f6b780.a08478",
+    "type": "debug",
+    "z": "2edf92b8.88f81e",
+    "name": "before format",
+    "active": false,
+    "console": "false",
+    "complete": "payload",
+    "x": 396.5454559326172,
+    "y": 229.90909957885742,
+    "wires": []
+  },
+  {
+    "id": "718eafd1.7abf4",
+    "type": "debug",
+    "z": "2edf92b8.88f81e",
+    "name": "after format",
+    "active": false,
+    "console": "false",
+    "complete": "payload",
+    "x": 611.0909042358398,
+    "y": 99,
+    "wires": []
+  },
+  {
+    "id": "f0250e70.8e4d9",
+    "type": "debug",
+    "z": "2edf92b8.88f81e",
+    "name": "after format",
+    "active": false,
+    "console": "false",
+    "complete": "payload",
+    "x": 606.5454254150391,
+    "y": 271.7272701263428,
+    "wires": []
+  },
+  {
+    "id": "2c99a562.6032da",
+    "type": "debug",
+    "z": "2edf92b8.88f81e",
+    "name": "after merge",
+    "active": false,
+    "console": "false",
+    "complete": "payload",
+    "x": 894.7272567749023,
+    "y": 213.5454559326172,
+    "wires": []
+  },
+  {
+    "id": "a1a027ed.e39f38",
+    "type": "function",
+    "z": "2edf92b8.88f81e",
+    "name": "Content Type",
+    "func": "msg.headers = {\"Content-Type\":\"application/json\"};\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 898.5655822753906,
+    "y": 286.0707025527954,
+    "wires": [
+      [
+        "dffed1c8.e7925"
+      ]
+    ]
+  },
+  {
+    "id": "dffed1c8.e7925",
+    "type": "http request",
+    "z": "2edf92b8.88f81e",
+    "name": "POST Presion",
+    "method": "POST",
+    "ret": "obj",
+    "url": "172.24.42.55:9000/sensores/1/presion",
+    "tls": "",
+    "x": 1123.2287559509277,
+    "y": 289.20960521698,
+    "wires": [
+      [
+        "4c79b3de.aa12bc"
+      ]
+    ]
+  },
+  {
+    "id": "4c79b3de.aa12bc",
+    "type": "debug",
+    "z": "2edf92b8.88f81e",
+    "name": "Response",
+    "active": true,
+    "console": "false",
+    "complete": "payload",
+    "x": 1272.6731910705566,
+    "y": 372.54292011260986,
+    "wires": []
+  },
+  {
+    "id": "dec660ee.e12fb",
+    "type": "function",
+    "z": "2edf92b8.88f81e",
+    "name": "Merge 2Messages",
+    "func": "context.data = context.data || new Object();\n\nswitch(msg.topic)\n{\n    case \"roomTime\":\n        context.data.fecha = msg.payload;\n        msg = null;\n        break;\n    case \"roomPresion\":\n        context.data.valor = msg.payload.valor;\n        msg = null;\n        break;\n    default: \n\t    msg = null;\n\t    break;\n}\n\nif(context.data.fecha !== null && context.data.valor !== null) {\n\tres = {};\n\tcontext.data = JSON.stringify(context.data);\n    var CryptoJS = context.global.cryptojs;\n    var DESKey = '2B7E151628AED2A6';\n    var iv = CryptoJS.enc.Hex.parse('0000000000000000') \n    var key= CryptoJS.enc.Hex.parse(DESKey);\n    var ciphertext = CryptoJS.DES.encrypt(context.data, key, {iv: iv});\n    var datos = new Object();\n    console.log(ciphertext)\n    datos.mensaje = ciphertext.toString();\n    var hash = CryptoJS.HmacSHA256(context.data, key);\n    datos.hmac = hash.toString(CryptoJS.enc.Base64);\n\tres.payload = JSON.stringify(datos);\n\tconsole.log (res.payload);\n\tres.topic = \"roomPresion\";\n\tcontext.data = null;\n\treturn res;\n}",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 663,
+    "y": 180.5234375,
+    "wires": [
+      [
+        "2c99a562.6032da",
+        "a1a027ed.e39f38"
+      ]
+    ]
+  },
+  {
+    "id": "de70d88e.0e1478",
+    "type": "serial-port",
+    "z": "",
+    "serialport": "COM4",
+    "serialbaud": "9600",
+    "databits": "8",
+    "parity": "none",
+    "stopbits": "1",
+    "newline": "\\n",
+    "bin": "false",
+    "out": "char",
+    "addchar": false
+  }
+]
+
