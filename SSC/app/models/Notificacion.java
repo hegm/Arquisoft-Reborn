@@ -23,7 +23,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="notificacion")
+@Table(name="notificacionentity")
 public class Notificacion extends Model {
     
     public final static String DIRECCION = "localhost";
@@ -53,7 +53,7 @@ public class Notificacion extends Model {
     public static Finder<Long,Notificacion> FINDER = new Finder<>(Notificacion.class);
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Notificacion")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private double presionSanguinea;
