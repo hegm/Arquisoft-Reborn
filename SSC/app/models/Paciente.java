@@ -54,7 +54,7 @@ public class Paciente extends Model {
         this.id=id;
     }
 
-                    public Paciente(String nombre,  int edad, String sintomas, Medico medico, Sensor sensor, List<Notificacion> notificaciones) {
+     public Paciente(String nombre,  int edad,  Medico medico, Sensor sensor, List<Notificacion> notificaciones) {
         this.nombre = nombre;
 
         this.edad = edad;
@@ -102,11 +102,11 @@ public class Paciente extends Model {
         this.sensor = sensor;
     }
 
-    public String getMedico() {
+    public Medico getMedico() {
         return medico;
     }
 
-    public void setMedico(String entidadMedica) {
+    public void setMedico(Medico entidadMedica) {
         this.medico = entidadMedica;
     }
 
@@ -118,17 +118,17 @@ public class Paciente extends Model {
         this.notificaciones = notificaciones;
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
     public static Paciente bind(JsonNode j) {
         String nombre = j.findPath("nombre").asText();
         int edad = j.findPath("edad").asInt();
         List notificaciones= j.findValuesAsText("notificaciones");
+        Medico medico= new Medico();
+        medico.bind(j);
+        Sensor sensor = new Sensor();
+        sensor.bind(j);
 
-
-       Paciente paciente = new Paciente(nombre, edad, this.medico.bind(j), this.sensor.bind(j), notificaciones);
+       Paciente paciente = new Paciente(nombre,edad, medico,sensor,notificaciones);
         return paciente;
     }
 
@@ -139,7 +139,6 @@ public class Paciente extends Model {
         
         this.setSensor((nuevoPaciente.getSensor()));
         this.setNotificaciones((nuevoPaciente.getNotificaciones()));
-
 
     }
 

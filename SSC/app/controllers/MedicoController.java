@@ -75,6 +75,7 @@ public class MedicoController extends Controller {
     {
 
         Medico medico = (Medico) new Model.Finder(Long.class, Medico.class).byId(idMedico);
+        ObjectNode result = Json.newObject();
         if(medico==null){
             return ok(Json.toJson(result));
         }
