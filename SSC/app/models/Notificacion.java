@@ -68,7 +68,7 @@ public class Notificacion extends Model {
         this.frecuenciaCardiaca=-1;
         this.nivelDeEstres=-1;
         
-        try
+       try
 		{
 			socket = new Socket(DIRECCION, PUERTO);
 		}
