@@ -23,21 +23,18 @@ public class Paciente extends Model {
 
     public String nombre;
 
-    public String apellido;
+
 
     public int edad;
 
-    public String sintomas;
+    public Sensor sensor;
 
-    public String entidadMedica;
 
-    public String estado;
+    private List<Consejo> consejos;
 
-    public Double presionSanguinea;
+    private Medico medico;
 
-    public Double frecuenciaCardiaca;
-
-    public int nivelEstres;
+    private List<Notificacion> notificaciones;
 
    
 
@@ -45,14 +42,10 @@ public class Paciente extends Model {
     public Paciente(){
         this.id=null;
         this.nombre="NO NAME";
-        this.apellido="NO APE";
         this.edad=-1;
-        this.sintomas="NO SIN";
-        this.entidadMedica= "NO MED";
-        this.estado= "NO ESTADO";
-        this.presionSanguinea= 0.0;
-        this.frecuenciaCardiaca=0.0;
-        this.nivelEstres=0;
+        this.sensor= new Sensor();
+        this.notificaciones= null;
+        this.medico=new Medico();
 
     }
 
@@ -61,20 +54,16 @@ public class Paciente extends Model {
         this.id=id;
     }
 
-    public Paciente(String nombre, String apellido, int edad, String sintomas, String entidadMedica, String estado, Double presionSanguinea, Double frecuenciaCardiaca, int nivelEstres) {
+                    public Paciente(String nombre,  int edad, String sintomas, Medico medico, Sensor sensor, List<Notificacion> notificaciones) {
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-        
-        this.sintomas = sintomas;
-        this.entidadMedica = entidadMedica;
-        this.estado = estado;
-        this.frecuenciaCardiaca = frecuenciaCardiaca;
-        this.nivelEstres = nivelEstres;
-        this.presionSanguinea = presionSanguinea;
 
+        this.edad = edad;
+        this.medico=medico;
         
-     
+        this.sensor = sensor;
+        this.notificaciones = notificaciones;
+
+
 
     }
     
@@ -95,13 +84,6 @@ public class Paciente extends Model {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
 
     public int getEdad() {
         return edad;
@@ -112,108 +94,60 @@ public class Paciente extends Model {
     }
 
     
-    public String getSintomas() {
-        return sintomas;
+    public Sensor getSensor() {
+        return sensor;
     }
 
-    public void setSintomas(String sintomas) {
-        this.sintomas = sintomas;
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
     }
 
-    public String getEntidadMedica() {
-        return entidadMedica;
+    public String getMedico() {
+        return medico;
     }
 
-    public void setEntidadMedica(String entidadMedica) {
-        this.entidadMedica = entidadMedica;
+    public void setMedico(String entidadMedica) {
+        this.medico = entidadMedica;
     }
 
-    public String getEstado() {
-        return estado;
+    public List<Notificacion> getNotificaciones() {
+        return notificaciones;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setNotificaciones(List<Notificacion> notificaciones) {
+        this.notificaciones = notificaciones;
     }
-
-    public Double getPresionSanguinea() {
-        return presionSanguinea;
-    }
-
-    public void setPresionSanguinea(Double presionSanguinea) {
-        this.presionSanguinea = presionSanguinea;
-    }
-
-    public Double getFrecuenciaCardiaca() {
-        return frecuenciaCardiaca;
-    }
-
-    public void setFrecuenciaCardiaca(Double frecuenciaCardiaca) {
-        this.frecuenciaCardiaca = frecuenciaCardiaca;
-    }
-
-    public int getNivelEstres() {
-        return nivelEstres;
-    }
-
-    public void setNivelEstres(int nivelEstres) {
-        this.nivelEstres = nivelEstres;
-    }
-
-    
-
-    
-    
-
-
-
-
-
-  
-    
-
-
-   
 
     public static Paciente bind(JsonNode j) {
         String nombre = j.findPath("nombre").asText();
-        String apellido = j.findPath("apellido").asText();
         int edad = j.findPath("edad").asInt();
-        String sintomas = j.findPath("sintomas").asText();
-        String entidadMedica = j.findPath("entidad").asText();
-        String estado = j.findPath("estado").asText();
-        Double frecuenciaCardiaca = j.findPath("frecuenciaCardiaca").asDouble();
-        Double presionSanguinea = j.findPath("presionSanguinea").asDouble();
-        int nivelEstres = j.findPath("nivelEstres").asInt();
-       
+        List notificaciones= j.findValuesAsText("notificaciones");
 
-       Paciente paciente = new Paciente(nombre, apellido, edad,sintomas, entidadMedica, estado, presionSanguinea, frecuenciaCardiaca, nivelEstres);
+
+       Paciente paciente = new Paciente(nombre, edad, this.medico.bind(j), this.sensor.bind(j), notificaciones);
         return paciente;
     }
 
     public void update(Paciente nuevoPaciente) {
         this.setNombre((nuevoPaciente.getNombre()));
-        this.setApellido((nuevoPaciente.getApellido()));
+        this.setMedico((nuevoPaciente.getMedico()));
         this.setEdad((nuevoPaciente.getEdad()));
         
-        this.setSintomas((nuevoPaciente.getSintomas()));
-        this.setEntidadMedica((nuevoPaciente.getEntidadMedica()));
-        this.setEstado((nuevoPaciente.getEstado()));
-        this.setFrecuenciaCardiaca(nuevoPaciente.getFrecuenciaCardiaca());
-        this.setPresionSanguinea(nuevoPaciente.getPresionSanguinea());
-        this.setNivelEstres(nuevoPaciente.getNivelEstres());
+        this.setSensor((nuevoPaciente.getSensor()));
+        this.setNotificaciones((nuevoPaciente.getNotificaciones()));
+
 
     }
 
     public void delete() {
         this.setId(null);
         this.setNombre("");
-        this.setApellido("");
+        this.setMedico(null);
         this.setEdad(0);
        
-        this.setSintomas("");
-        this.setEntidadMedica("");
-        this.setEstado("");
+        this.setNotificaciones(null);
+        this.setSensor(null);
+       
     }
 
 }

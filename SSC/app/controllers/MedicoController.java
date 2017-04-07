@@ -9,6 +9,7 @@ import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Medico;
+import models.Notificacion;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -67,6 +68,22 @@ public class MedicoController extends Controller {
             medico.save();
         }
         return ok(Json.toJson(medico));
+    }
+    public Notificacion getNotificacion(int idMedico, int idNotificacion)
+    {
+
+        Medico medico = (Medico) new Model.Finder(Long.class, Medico.class).byId(idMedico);
+        if(medico==null){
+            return ok(Json.toJson(result));
+        }
+        List<Notificacion> notificaciones= medico.getNotificaciones();
+        for(int i=0; i<notificaciones.size(); i++){
+            Notificacion n = notificaciones.get(i);
+            if(n.getId()== idNotificacion){
+                return n;
+            }
+        }
+        return ok(Json.toJson(result));
     }
 
 
