@@ -28,6 +28,8 @@ PUT           /medico/:id                              controllers.MedicoControl
 
 DELETE        /medico/:id                              controllers.MedicoController.delete(id: Long)
 
+GET           /medico/:id/notificacion/:id2             controllers.MedicoController.getNotificacion(id: Long, id2: Long)
+
 
 #PacienteController
 POST          /paciente                                controllers.PacienteController.create()
@@ -40,6 +42,10 @@ PUT           /paciente/:id                            controllers.PacienteContr
 
 DELETE        /paciente/:id                            controllers.PacienteController.delete(id: Long)
 
+GET           /paciente/:id/sensor/:id2                 controllers.PacienteController.getSensor(id: Long, id2: Long)
+
+GET           /paciente/:id/consejo/:id2                 controllers.PacienteController.getConsejo(id: Long, id2: Long)
+
 
 #OperarioController
 GET           /operario                                controllers.OperarioController.read()
@@ -48,7 +54,40 @@ GET           /operario/:id                            controllers.OperarioContr
 
 POST          /operario                                controllers.OperarioController.create()
 
+#SensorController
+GET           /sensor                                   controllers.SensorController.read()
 
+GET           /sensor/:id                               controllers.SensorController.get(id: Long)
+
+POST          /sensor                                  controllers.SensorController.create()
+
+PUT           /sensor/:id                               controllers.SensorController.update(id: Long)
+
+#NotificacionController
+
+GET            /notificacion                            controllers.NotificacionController.read()
+
+GET            /notificacion/:id                            controllers.NotificacionController.get(id: Long)
+
+POST           /notificacion                            controllers.NotificacionController.create()
+
+PUT            /notificacion/:id                            controllers.NotificacionController.update(id: Long)
+
+GET            /notificacion/frecuencia/:id             controllers.NotificacionController.getFrecuencia(id: Long)
+
+GET            /notificacion/presion/:id                controllers.NotificacionController.getPresion(id: Long)
+
+GET            /notificacion/estres/:id                 controllers.NotificacionController.getEstres(id: Long)
+
+#ConsejoController
+
+GET             /consejo                                controllers.ConsejoController.read()
+
+GET             /consejo/:id                            controllers.ConsejoController.get(id: Long)
+
+POST            /consejo                                controllers.ConsejoController.create()
+
+PUT             /consejo/:id                            controllers.ConsejoController.update(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                            controllers.Assets.versioned(path="/public", file: Asset)

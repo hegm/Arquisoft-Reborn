@@ -9,6 +9,7 @@ create table consejo (
   rutina                    varchar(255),
   medicamento               varchar(255),
   cita                      varchar(255),
+  hash                      bigint,
   constraint pk_consejo primary key (id))
 ;
 
