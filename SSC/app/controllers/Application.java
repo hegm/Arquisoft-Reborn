@@ -8,7 +8,7 @@ import views.html.*;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.Index;
+import views.html.index;
 import views.html.Profile;
 import views.html.Login;
 import views.formdata.LoginFormData;
@@ -21,7 +21,7 @@ public class Application extends Controller {
      * @return The Index page.
      */
     public  Result index() {
-        return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+        return ok(index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
 
     /**
