@@ -113,7 +113,7 @@ public class PacienteController extends Controller {
                 return ok(Json.toJson(result));
             }
             
-          
+
     }
     
     

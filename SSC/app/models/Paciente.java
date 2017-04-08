@@ -34,7 +34,7 @@ public class Paciente extends Model {
 
     private Medico medico;
 
-    private List<Notificacion> notificaciones;
+    private Notificacion notificaciones;
 
    
 
@@ -54,7 +54,7 @@ public class Paciente extends Model {
         this.id=id;
     }
 
-     public Paciente(String nombre,  int edad,  Medico medico, Sensor sensor, List<Notificacion> notificaciones, Consejo consejos) {
+     public Paciente(String nombre,  int edad,  Medico medico, Sensor sensor, Notificacion notificaciones, Consejo consejos) {
         this.nombre = nombre;
 
         this.edad = edad;
@@ -122,11 +122,11 @@ public class Paciente extends Model {
         this.medico = entidadMedica;
     }
 
-    public List<Notificacion> getNotificaciones() {
+    public Notificacion getNotificaciones() {
         return notificaciones;
     }
 
-    public void setNotificaciones(List<Notificacion> notificaciones) {
+    public void setNotificaciones(Notificacion notificaciones) {
         this.notificaciones = notificaciones;
     }
 

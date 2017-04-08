@@ -32,6 +32,10 @@ create table medicoentity (
   nombre                    varchar(255),
   edad                      integer,
   especializacion           varchar(255),
+  pacientes                  bigint,
+  notificaciones             bigint,
+  constraint fk_medicoentity foreign key (pacienteentity.id, pacientes),
+  constraint fk_mediconentity foreign key (notificacionentity.id, notificaciones),
   constraint pk_medicoentity primary key (id))
 ;
 
@@ -52,8 +56,12 @@ create table pacienteentity (
   id                        bigint not null,
   nombre                    varchar(255),
   edad                      integer,
-
-   constraint fk_pacienteentity foreign key (sensorentity, id),
+  sensor                    bigint,
+  medicos                    bigint,
+  consejos                    bigint,
+  constraint fk_pacienteentity foreign key (sensorentity.id, sensor),
+  constraint fk_pacientennentity foreign key (medicoentity.id, medicos),
+  constraint fk_pacientenentity foreign key (consejoentity.id, consejos),
   constraint pk_pacienteentity primary key (id))
 ;
 
