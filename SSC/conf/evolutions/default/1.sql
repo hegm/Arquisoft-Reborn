@@ -52,6 +52,7 @@ create table pacienteentity (
   id                        bigint not null,
   nombre                    varchar(255),
   edad                      integer,
+ 
   constraint pk_pacienteentity primary key (id))
 ;
 
