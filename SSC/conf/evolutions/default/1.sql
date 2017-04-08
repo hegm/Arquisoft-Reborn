@@ -52,8 +52,8 @@ create table pacienteentity (
   id                        bigint not null,
   nombre                    varchar(255),
   edad                      integer,
-  sensor                     bigint,
-   constraint fk_pacienteentity foreign key (sensor, id),
+
+   constraint fk_pacienteentity foreign key (sensorentity, id),
   constraint pk_pacienteentity primary key (id))
 ;
 

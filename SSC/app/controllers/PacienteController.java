@@ -99,12 +99,9 @@ public class PacienteController extends Controller {
             return ok(Json.toJson(result));
         }
 
-        List<Consejo> consejos = paciente.getConsejos();
-         for(int i=0; i<consejos.size(); i++){
-            Consejo c = consejos.get(i);
-            if(c.getId()== idConsejo){
-                
-            Consejo con = consejos.get(i);
+     Consejo consejos = paciente.getConsejos();
+
+            Consejo con = consejos;
             
             boolean ok = integridad(con);
             
@@ -116,10 +113,7 @@ public class PacienteController extends Controller {
                 return ok(Json.toJson(result));
             }
             
-            }
-
-        }
-        return ok(Json.toJson(result));
+          
     }
     
     

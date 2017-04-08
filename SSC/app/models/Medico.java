@@ -19,8 +19,8 @@ public class Medico extends Model {
     private String nombre;
     private int edad;
     private String especializacion;
-    private List<Paciente> pacientes;
-    private List<Notificacion> notificaciones;
+    private Paciente pacientes;
+    private Notificacion notificaciones;
 
     public Medico() {
 
@@ -36,7 +36,7 @@ public class Medico extends Model {
         this.id=id;
     }
 
-    public Medico(String nombre, int edad, String especializacion, List<Paciente> pacientes, List<Notificacion> notificaciones) {
+    public Medico(String nombre, int edad, String especializacion, Paciente pacientes, Notificacion notificaciones) {
         this.nombre = nombre;
         this.edad = edad;
         this.especializacion = especializacion;
@@ -78,19 +78,19 @@ public class Medico extends Model {
         this.especializacion = especializacion;
     }
 
-    public List<Paciente> getPacientes() {
+    public Paciente getPacientes() {
         return pacientes;
     }
 
-    public void setPacientes(List<Paciente> pacientes) {
+    public void setPacientes(Paciente pacientes) {
         this.pacientes = pacientes;
     }
 
-    public List<Notificacion> getNotificaciones() {
+    public Notificacion getNotificaciones() {
         return notificaciones;
     }
 
-    public void setNotificaciones(List<Notificacion> notificaciones) {
+    public void setNotificaciones(Notificacion notificaciones) {
         this.notificaciones = notificaciones;
     }
 
@@ -98,8 +98,11 @@ public class Medico extends Model {
         String nombre = j.findPath("nombre").asText();
         int edad = j.findPath("edad").asInt();
         String especializacion = j.findPath("especializacion").asText();
-        List pacientes = j.findValuesAsText("pacientes");
-        List notificaciones= j.findValuesAsText("notificaciones");
+
+        Paciente pacientes= new Paciente();
+        pacientes.bind(j);
+        Notificacion notificaciones= new Notificacion();
+        notificaciones.bind(j);
 
         Medico medico = new Medico(nombre, edad, especializacion, pacientes,notificaciones);
         return medico;

@@ -36,18 +36,16 @@ public class MedicoController extends Controller {
             return ok(Json.toJson(result));
         }
         
-        List<Paciente> pacientes = medico.getPacientes();
-         for(int i=0; i<pacientes.size(); i++){
-            Paciente p = pacientes.get(i);
-            if(p.getId()== idPaciente){
+        Paciente pacientes = medico.getPacientes();
+
                 
-                List consejos= p.getConsejos();
+                Consejo consejos= p.getConsejos();
                 consejos.add(consejo);
-               return ok(Json.toJson(consejos));            
+               return ok(Json.toJson(consejos));
                 
-            }
-   }
-          return ok(Json.toJson(result));
+
+
+
     }
 
     public Result read() {
@@ -98,14 +96,12 @@ public class MedicoController extends Controller {
         if(medico==null){
             return ok(Json.toJson(result));
         }
-        List<Notificacion> notificaciones= medico.getNotificaciones();
-        for(int i=0; i<notificaciones.size(); i++){
-            Notificacion n = notificaciones.get(i);
-            if(n.getId()== idNotificacion){
-                return ok(Json.toJson(n));
-            }
-        }
-        return ok(Json.toJson(result));
+        Notificacion notificaciones= medico.getNotificaciones();
+
+                return ok(Json.toJson(notificaciones));
+
+
+
     }
 
 
