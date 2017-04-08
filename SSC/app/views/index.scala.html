@@ -1,7 +1,13 @@
-@(message: String)
+@(page: String, isLoggedIn: Boolean, userInfo: UserInfo)
 
-@main("Welcome to Play") {
-
-    @play20.welcome(message, style = "Java")
-
+@main(page, isLoggedIn, userInfo) {
+<div class="container">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+           <h1>Bienvenido al Sistema de Hospitales</h1>
+            <h3>Para ingresar oprima el botón en la parte superior</h3>
+            <h4>Cualquier inconveniente, por favor contacte a un administrador del sistema</h4>
+        </div>
+    </div>
+</div>
 }
