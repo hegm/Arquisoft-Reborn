@@ -3,12 +3,19 @@ package models;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import javax.persistence.*;
+
 /**
  * Created by haes_ on 6/04/2017.
  */
+@Entity
+@Table(name="emergenciaentity")
 public class Ambulancia extends Model {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
 
     private Paciente paciente;
 

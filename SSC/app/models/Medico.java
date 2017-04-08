@@ -13,7 +13,7 @@ public class Medico extends Model {
     public static Finder<Long,Medico> FINDER = new Finder<>(Medico.class);
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Medico")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long id;
 
     private String nombre;
