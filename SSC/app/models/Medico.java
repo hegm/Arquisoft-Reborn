@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import mediator.AlertMediator;
 
 @Entity
 @Table(name = "medicoentity")
@@ -14,6 +15,9 @@ public class Medico extends Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    
+    public AlertMediator mediator;
+    
     public Long id;
 
     private String nombre;
@@ -125,6 +129,31 @@ public class Medico extends Model {
 
 
     }
+    
+     public void registarViejas(){
+        
+        for(int i = 0; i < notificaciones.size(); i++){
+            Notificacion nueva = notificaciones.get(i);
+            mediator.Register(nueva);
+        }
+     }
+     
+     public void Alerta(Notificacion nueva, Long idPaciente)
+     {
+        for(int i = 0; i<pacientes.size(); i++){
+            
+            Paciente actual = pacientes.get(i);
+            if(actual.id == idPaciente){
+            String mes = "se produjo una emergencia con el paciente de id ="+idPaciente;
+            mediator.notify(actual, this, nueva);
+            mediator.DistributeMessage(nueva, mes);
+            
+            }
+        }
+            
+         
+        
+     }
     
     
    

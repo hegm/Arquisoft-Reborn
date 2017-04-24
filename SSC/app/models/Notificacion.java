@@ -12,11 +12,16 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 import javax.persistence.*;
+import mediator.AlertMediator;
+import mediator.IColleague;
+import mediator.IMediator;
 
 /**
  * Created by haes_ on 6/04/2017.
@@ -24,7 +29,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="notificacionentity")
-public class Notificacion extends Model {
+public class Notificacion extends Model implements IColleague {
+    
+    public AlertMediator mediator;
     
     public final static String DIRECCION = "localhost";
     public final static int PUERTO = 9000;
@@ -61,6 +68,8 @@ public class Notificacion extends Model {
     private double frecuenciaCardiaca;
 
     private double nivelDeEstres;
+    
+    public List<String> mensajes = new ArrayList<String>();
 
     public Notificacion(){
         this.id=null;
@@ -255,4 +264,27 @@ public class Notificacion extends Model {
         this.setPresionSanguinea(0.0);
         this.setNivelDeEstres(0.0);
     }
+
+    public void setMensajes(List<String> mensajes) {
+        this.mensajes = mensajes;
+    }
+    
+    
+    
+    
+    public void SendMessage(String message){
+        
+        
+        mediator.Register(this);
+        mediator.DistributeMessage(this, message);
+        
+    }
+
+    public void ReceiveMessage(String message){
+        
+        mensajes.add(message);
+        
+    }
+    
+    
 }

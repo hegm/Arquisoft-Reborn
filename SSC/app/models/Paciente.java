@@ -7,11 +7,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import mediator.AlertMediator;
 
 @Entity
 @Table(name = "pacienteentity")
 public class Paciente extends Model {
 
+    
+    public AlertMediator mediator;
 
     public static Finder<Long,Paciente> FINDER = new Finder<>(Paciente.class);
     //Atributos
@@ -164,5 +167,25 @@ public class Paciente extends Model {
         this.setSensor(null);
        
     }
+    
+    public void registarViejas(){
+        
+        for(int i = 0; i < notificaciones.size(); i++){
+            Notificacion nueva = notificaciones.get(i);
+            mediator.Register(nueva);
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
