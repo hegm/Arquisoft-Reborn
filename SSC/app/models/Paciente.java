@@ -3,6 +3,10 @@ package models;
 
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
+import state.EstadoAmarillo;
+import state.EstadoRojo;
+import state.EstadoVerde;
+import state.IEstadoPaciente;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,15 +26,19 @@ public class Paciente extends Model {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 
-    public Long id;
+    private Long id;
 
-    public String nombre;
+    private String nombre;
 
+    private IEstadoPaciente sano;
+    private IEstadoPaciente alerta;
+    private IEstadoPaciente urgente;
 
+    private IEstadoPaciente estado;
 
-    public int edad;
+    private int edad;
 
-    public Sensor sensor;
+    private Sensor sensor;
 
 
     private List<Consejo> consejos;
@@ -49,6 +57,11 @@ public class Paciente extends Model {
         this.sensor= null;
         this.notificaciones= null;
         this.medico=null;
+        sano= new EstadoVerde(this);
+        alerta= new EstadoAmarillo(this);
+        urgente = new EstadoRojo(this);
+
+        estado= sano;
 
     }
 
@@ -77,12 +90,14 @@ public class Paciente extends Model {
     public void setConsejos(List<Consejo> consejos) {
         this.consejos = consejos;
     }
-    
 
-     
-     
-     
-    public Long getId() {
+
+    public void setEstadoPaciente(IEstadoPaciente nuevoEstado){
+
+        estado=nuevoEstado;
+     }
+
+       public Long getId() {
         return id;
     }
 
@@ -132,6 +147,10 @@ public class Paciente extends Model {
         this.notificaciones = notificaciones;
     }
 
+
+    public IEstadoPaciente getEstadoVerde(){return sano;}
+    public IEstadoPaciente getEstadoAmarillo(){return alerta;}
+    public IEstadoPaciente getEstadoRojo(){return urgente;}
 
     public static Paciente bind(JsonNode j) {
         String nombre = j.findPath("nombre").asText();
