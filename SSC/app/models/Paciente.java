@@ -30,6 +30,8 @@ public class Paciente extends Model {
 
     private String nombre;
 
+    private static Paciente paciente;
+
     private IEstadoPaciente sano;
     private IEstadoPaciente alerta;
     private IEstadoPaciente urgente;
@@ -48,7 +50,30 @@ public class Paciente extends Model {
     private List<Notificacion> notificaciones;
 
    
+    private Paciente(String nombre){
+        this.nombre = nombre;
+    }
 
+    public static Paciente getSingletonInstance(String nombre){
+        if(paciente== null){
+            paciente= new Paciente(nombre);
+        }
+        else {
+            System.out.println("No se puede crear el objeto "+ nombre+" por que ya existe un objeto de la clase Paciente");
+        }
+
+        return paciente;
+    }
+
+    @Override
+    public Paciente clone(){
+        try{
+            throw new CloneNotSupportedException();
+        }catch (CloneNotSupportedException ex){
+            System.out.println("No se puede clonar un objeto de la clase Paciente");
+        }
+        return null;
+    }
 
     public Paciente(){
         this.id=null;
